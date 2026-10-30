@@ -10,4 +10,8 @@ export const COMPANY = {
   address:
     "Gedung Aditya lot 204 lantai 2, Jl. Aditiawarman I No.14, Melawai, Kebayoran Baru, Jakarta Selatan 12160",
   website: "bluetidesystemid.com",
+  // Isi bila tersedia; kolom kosong tidak ditampilkan di footer.
+  email: "",
+  phone: "",
+  socials: { linkedin: "", instagram: "", youtube: "" },
 };
