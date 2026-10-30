@@ -2,8 +2,8 @@
 // Kosongkan untuk memakai latar gelombang bawaan.
 export const HERO_IMAGE = "";
 
-// Isi teks misi perusahaan; bagian misi hanya tampil jika tidak kosong.
-export const MISSION = "";
+// Teks misi per bahasa; bagian misi hanya tampil jika teks bahasa aktif tidak kosong.
+export const MISSION = { id: "", en: "" };
 
 export const COMPANY = {
   name: "PT. BlueTideSystem Indonesia",
