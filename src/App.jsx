@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import AdminDashboard from "./pages/AdminDashboard";
 import CustomersPartnersPage from "./pages/CustomersPartnersPage";
 import HomePage from "./pages/HomePage";
-import { COMPANY } from "./data/content";
+import Footer from "./components/Footer";
 import LanguageToggle from "./components/LanguageToggle";
 import { EASE } from "./components/motion";
 import { useLang } from "./i18n/LanguageContext";
@@ -79,30 +79,15 @@ function Header() {
   );
 }
 
-function Footer() {
-  return (
-    <footer className="bg-navy py-10 text-sm text-slate-400">
-      <div className="mx-auto flex max-w-6xl flex-wrap justify-between gap-6 px-6">
-        <div className="max-w-md">
-          <p className="font-bold text-white">{COMPANY.name}</p>
-          <p className="mt-2 leading-relaxed">{COMPANY.address}</p>
-        </div>
-        <a
-          href={`https://${COMPANY.website}`}
-          className="font-semibold text-teal transition-colors duration-150 hover:text-white"
-        >
-          {COMPANY.website}
-        </a>
-      </div>
-    </footer>
-  );
-}
-
 export default function App() {
   const { pathname, hash } = useLocation();
 
   useEffect(() => {
-    if (!hash) window.scrollTo(0, 0);
+    if (!hash) {
+      window.scrollTo(0, 0);
+      return;
+    }
+    document.getElementById(hash.slice(1))?.scrollIntoView();
   }, [pathname, hash]);
 
   return (
