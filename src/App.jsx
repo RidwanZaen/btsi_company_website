@@ -5,16 +5,19 @@ import AdminDashboard from "./pages/AdminDashboard";
 import CustomersPartnersPage from "./pages/CustomersPartnersPage";
 import HomePage from "./pages/HomePage";
 import { COMPANY } from "./data/content";
+import LanguageToggle from "./components/LanguageToggle";
 import { EASE } from "./components/motion";
+import { useLang } from "./i18n/LanguageContext";
 import logoBTSI from "./BTSI_logo.png";
 
 const NAV = [
-  { to: "/", end: true, label: "Home" },
-  { to: "/customers-partners", label: "Customers & Partners", short: "Clients" },
-  { to: "/admin", label: "Admin" },
+  { to: "/", end: true, key: "nav.home" },
+  { to: "/customers-partners", key: "nav.clients", shortKey: "nav.clientsShort" },
+  { to: "/admin", key: "nav.admin" },
 ];
 
 function Header() {
+  const { t } = useLang();
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
@@ -31,17 +34,18 @@ function Header() {
       }`}
     >
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-6">
-        <NavLink to="/" aria-label="BTSI, beranda" className="flex items-center">
+        <NavLink to="/" aria-label={t("nav.logoLabel")} className="flex items-center">
           <img src={logoBTSI} alt="Logo BTSI" className="h-8 w-auto" />
         </NavLink>
-        <nav className="flex gap-1" aria-label="Navigasi utama">
+        <div className="flex items-center gap-1 sm:gap-3">
+        <nav className="flex gap-0.5 sm:gap-1" aria-label={t("nav.label")}>
           {NAV.map((n) => (
             <NavLink
               key={n.to}
               to={n.to}
               end={n.end}
               className={({ isActive }) =>
-                `relative rounded-full px-4 py-2 text-sm font-semibold transition-colors duration-150 ${
+                `relative rounded-full px-3 py-2 text-sm sm:px-4 font-semibold transition-colors duration-150 ${
                   isActive ? "text-navy" : "text-slate-600 hover:text-sea"
                 }`
               }
@@ -55,19 +59,21 @@ function Header() {
                       transition={{ type: "spring", stiffness: 500, damping: 38 }}
                     />
                   )}
-                  {n.short ? (
+                  {n.shortKey ? (
                     <>
-                      <span className="sm:hidden">{n.short}</span>
-                      <span className="hidden sm:inline">{n.label}</span>
+                      <span className="sm:hidden">{t(n.shortKey)}</span>
+                      <span className="hidden sm:inline">{t(n.key)}</span>
                     </>
                   ) : (
-                    n.label
+                    t(n.key)
                   )}
                 </>
               )}
             </NavLink>
           ))}
         </nav>
+        <LanguageToggle />
+        </div>
       </div>
     </header>
   );
