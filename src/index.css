@@ -1,0 +1,29 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+  --color-navy: #06182f;
+  --color-sea: #0b5ca8;
+  --color-wave: #2e8bc0;
+  --color-teal: #14b8c4;
+  --color-foam: #e8f1f8;
+
+  --animate-marquee: marquee 50s linear infinite;
+  --animate-wave: wave 20s linear infinite;
+  --animate-wave-rev: wave 32s linear infinite reverse;
+
+  @keyframes marquee { to { transform: translateX(-50%); } }
+  @keyframes wave { to { transform: translateX(-50%); } }
+}
+
+@layer base {
+  h1, h2, h3 { text-wrap: balance; }
+  p { text-wrap: pretty; }
+  ::selection { background: color-mix(in srgb, var(--color-teal) 35%, white); color: var(--color-navy); }
+  :focus-visible { outline: 2px solid var(--color-teal); outline-offset: 3px; border-radius: 6px; }
+  button { cursor: pointer; }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html { scroll-behavior: smooth; }
+}
