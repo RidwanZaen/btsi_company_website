@@ -1,4 +1,5 @@
 import { useClients } from "../context/ClientsContext";
+import { useLang } from "../i18n/LanguageContext";
 import Logo from "./Logo";
 import { Item, RevealGroup } from "./motion";
 
@@ -27,23 +28,24 @@ function LogoGrid({ items, empty }) {
 
 export default function ClientPartnerSection() {
   const { clients, loading, error } = useClients();
+  const { t } = useLang();
   const customers = clients.filter((c) => c.category === "Customer");
   const partners = clients.filter((c) => c.category === "Partner");
-  const empty = loading ? "Memuat data..." : error || "Belum ada data.";
+  const empty = loading ? t("clients.loading") : error || t("clients.empty");
 
   return (
     <>
       <section className="bg-slate-50 py-20" aria-labelledby="customers-title">
         <div className="mx-auto max-w-6xl px-6">
-          <h2 id="customers-title" className="text-3xl font-extrabold tracking-tight text-navy">Our Customers</h2>
-          <p className="mb-10 mt-2 text-slate-600">{customers.length} institusi yang mempercayakan keamanan dan infrastrukturnya kepada kami.</p>
+          <h2 id="customers-title" className="text-3xl font-extrabold tracking-tight text-navy">{t("clients.customersTitle")}</h2>
+          <p className="mb-10 mt-2 text-slate-600">{t("clients.customersText", { n: customers.length })}</p>
           <LogoGrid items={customers} empty={empty} />
         </div>
       </section>
 
       <section className="mx-auto max-w-6xl px-6 py-20" aria-labelledby="partners-title">
-        <h2 id="partners-title" className="text-3xl font-extrabold tracking-tight text-navy">Our Partners</h2>
-        <p className="mb-10 mt-2 text-slate-600">{partners.length} mitra teknologi dan konsultasi yang mendukung solusi kami.</p>
+        <h2 id="partners-title" className="text-3xl font-extrabold tracking-tight text-navy">{t("clients.partnersTitle")}</h2>
+        <p className="mb-10 mt-2 text-slate-600">{t("clients.partnersText", { n: partners.length })}</p>
         <LogoGrid items={partners} empty={empty} />
       </section>
     </>
