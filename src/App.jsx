@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { Navigate, NavLink, Route, Routes, useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
 import AdminDashboard from "./pages/AdminDashboard";
-import CustomersPartnersPage from "./pages/CustomersPartnersPage";
 import HomePage from "./pages/HomePage";
 import Footer from "./components/Footer";
 import LanguageToggle from "./components/LanguageToggle";
@@ -12,7 +11,7 @@ import logoBTSI from "./BTSI_logo.png";
 
 const NAV = [
   { to: "/", end: true, key: "nav.home" },
-  { to: "/customers-partners", key: "nav.clients", shortKey: "nav.clientsShort" },
+  { to: "/#clients", anchor: true, key: "nav.clients", shortKey: "nav.clientsShort" },
   { to: "/admin", key: "nav.admin" },
 ];
 
@@ -46,13 +45,13 @@ function Header() {
               end={n.end}
               className={({ isActive }) =>
                 `relative rounded-full px-3 py-2 text-sm sm:px-4 font-semibold transition-colors duration-150 ${
-                  isActive ? "text-navy" : "text-slate-600 hover:text-sea"
+                  isActive && !n.anchor ? "text-navy" : "text-slate-600 hover:text-sea"
                 }`
               }
             >
               {({ isActive }) => (
                 <>
-                  {isActive && (
+                  {isActive && !n.anchor && (
                     <motion.span
                       layoutId="nav-pill"
                       className="absolute inset-0 -z-10 rounded-full bg-teal"
@@ -101,7 +100,7 @@ export default function App() {
       >
         <Routes>
           <Route path="/" element={<HomePage />} />
-          <Route path="/customers-partners" element={<CustomersPartnersPage />} />
+          <Route path="/customers-partners" element={<Navigate to="/#clients" replace />} />
           <Route path="/admin" element={<AdminDashboard />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
