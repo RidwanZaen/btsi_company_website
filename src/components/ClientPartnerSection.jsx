@@ -1,30 +1,6 @@
 import { useClients } from "../context/ClientsContext";
 import { useLang } from "../i18n/LanguageContext";
-import Logo from "./Logo";
-import { Item, RevealGroup } from "./motion";
-
-const Empty = ({ children }) => (
-  <p className="rounded-xl border border-dashed border-slate-300 p-8 text-center text-slate-500">{children}</p>
-);
-
-function LogoGrid({ items, empty }) {
-  if (items.length === 0) return <Empty>{empty}</Empty>;
-  return (
-    <RevealGroup as="ul" gap={0.035} className="grid grid-cols-2 gap-5 sm:grid-cols-3 lg:grid-cols-4">
-      {items.map((c) => (
-        <Item
-          as="li"
-          key={c.id}
-          className="group flex h-40 items-center justify-center rounded-2xl border border-slate-200 bg-white p-6 transition-[border-color,box-shadow] duration-200 ease-out hover:border-teal/60 hover:shadow-[0_18px_40px_-20px_rgba(11,92,168,0.35)]"
-        >
-          <div className="opacity-80 grayscale transition-[opacity,filter] duration-200 group-hover:opacity-100 group-hover:grayscale-0">
-            <Logo name={c.name} logoUrl={c.logoUrl} layout="col" className="h-10 w-10" imageClassName="h-12 w-36" />
-          </div>
-        </Item>
-      ))}
-    </RevealGroup>
-  );
-}
+import LogoCarousel from "./LogoCarousel";
 
 export default function ClientPartnerSection() {
   const { clients, loading, error } = useClients();
@@ -35,18 +11,28 @@ export default function ClientPartnerSection() {
 
   return (
     <>
-      <section className="bg-slate-50 py-20" aria-labelledby="customers-title">
+      <section className="bg-slate-50 py-20">
         <div className="mx-auto max-w-6xl px-6">
-          <h2 id="customers-title" className="text-3xl font-extrabold tracking-tight text-navy">{t("clients.customersTitle")}</h2>
-          <p className="mb-10 mt-2 text-slate-600">{t("clients.customersText", { n: customers.length })}</p>
-          <LogoGrid items={customers} empty={empty} />
+          <LogoCarousel
+            id="customers-title"
+            title={t("clients.customersTitle")}
+            subtitle={t("clients.customersText", { n: customers.length })}
+            items={customers}
+            empty={empty}
+          />
         </div>
       </section>
 
-      <section className="mx-auto max-w-6xl px-6 py-20" aria-labelledby="partners-title">
-        <h2 id="partners-title" className="text-3xl font-extrabold tracking-tight text-navy">{t("clients.partnersTitle")}</h2>
-        <p className="mb-10 mt-2 text-slate-600">{t("clients.partnersText", { n: partners.length })}</p>
-        <LogoGrid items={partners} empty={empty} />
+      <section className="py-20">
+        <div className="mx-auto max-w-6xl px-6">
+          <LogoCarousel
+            id="partners-title"
+            title={t("clients.partnersTitle")}
+            subtitle={t("clients.partnersText", { n: partners.length })}
+            items={partners}
+            empty={empty}
+          />
+        </div>
       </section>
     </>
   );
