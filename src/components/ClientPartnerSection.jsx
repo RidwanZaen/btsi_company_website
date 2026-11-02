@@ -10,7 +10,7 @@ export default function ClientPartnerSection() {
   const empty = loading ? t("clients.loading") : error || t("clients.empty");
 
   return (
-    <>
+    <div id="clients" className="scroll-mt-16">
       <section className="bg-slate-50 py-20">
         <div className="mx-auto max-w-6xl px-6">
           <LogoCarousel
@@ -34,6 +34,6 @@ export default function ClientPartnerSection() {
           />
         </div>
       </section>
-    </>
+    </div>
   );
 }
