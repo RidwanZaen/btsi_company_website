@@ -1,11 +1,9 @@
-import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
+import ClientPartnerSection from "../components/ClientPartnerSection";
 import Icon from "../components/Icon";
 import { fadeUp, press, stagger } from "../components/motion";
 import { useLang } from "../i18n/LanguageContext";
 import { HERO_IMAGE, MISSION } from "../data/content";
-
-const MotionLink = motion.create(Link);
 
 const VALUES = [
   { icon: "bulb", key: "values.1" },
@@ -47,13 +45,13 @@ function Hero() {
           >
             {t("hero.ctaServices")}
           </motion.a>
-          <MotionLink
-            to="/customers-partners"
+          <motion.a
+            href="#clients"
             {...press}
             className="rounded-full border border-white/40 px-8 py-3.5 font-semibold transition-colors duration-200 hover:bg-white/10"
           >
             {t("hero.ctaClients")}
-          </MotionLink>
+          </motion.a>
         </motion.div>
       </motion.div>
 
@@ -179,18 +177,7 @@ export default function HomePage() {
       <About />
       <Values />
       <Services />
-      <section className="bg-navy py-16 text-white">
-        <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-6 px-6">
-          <h2 className="max-w-xl text-2xl font-bold">{t("cta.text")}</h2>
-          <MotionLink
-            to="/customers-partners"
-            {...press}
-            className="rounded-full bg-teal px-8 py-3.5 font-bold text-navy transition-colors duration-200 hover:bg-white"
-          >
-            {t("cta.button")}
-          </MotionLink>
-        </div>
-      </section>
+      <ClientPartnerSection />
     </>
   );
 }
